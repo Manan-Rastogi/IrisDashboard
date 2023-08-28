@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Bar Chart with Data Download</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.9.0/plotly.min.js"></script>
+</head>
+<body>
+  <div id="my-graph"></div>
+  <script>
+    // Sample local data
+    var data = [
+      { country: 'USA', pop: 328_200_000 },
+      { country: 'China', pop: 1_439_323_776 },
+      { country: 'India', pop: 1_380_004_385 },
+      { country: 'Brazil', pop: 212_559_417 },
+      { country: 'Pakistan', pop: 225_199_937 }
+    ];
+
+    var layout = {
+      xaxis: { title: 'Country' },
+      yaxis: { title: 'Population' },
+      title: 'Interactive Bar Chart with Data Download'
+    };
+
+    var trace = {
+      x: data.map(entry => entry.country),
+      y: data.map(entry => entry.pop),
+      type: 'bar',
+      text: data.map(entry => `Population: ${entry.pop}`),
+      hoverinfo: 'text'
+    };
+
+    var plotData = [trace];
+
+    var chartConfig = {
+      displayModeBar: true,
+      staticPlot: false
+    };
+
+    // Create the plot
+    Plotly.newPlot('my-graph', plotData, layout, chartConfig);
+
+    // Add event listener to chart bars for data download
+    document.getElementById('my-graph').on('plotly_click', function(eventData) {
+      var dataIndex = eventData.points[0].pointNumber;
+      var selectedData = data[dataIndex];
+      var csv = `Country,Population\n${selectedData.country},${selectedData.pop}`;
+      var blob = new Blob([csv], { type: 'text/csv' });
+      var downloadLink = document.createElement('a');
+      downloadLink.href = window.URL.createObjectURL(blob);
+      downloadLink.download = `${selectedData.country}_data.csv`;
+      downloadLink.click();
+    });
+  </script>
+</body>
+</html>

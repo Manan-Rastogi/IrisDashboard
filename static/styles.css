@@ -1,0 +1,23 @@
+/* Custom styles for IrisAnalytics */
+
+/* Add some margin to the form elements for better spacing */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Style the error message */
+#error-message {
+    color: red;
+    font-weight: bold;
+}
+
+/* Style the plot containers */
+#histogram-plot,
+#line-chart {
+    height: 400px;
+}
+
+/* Style the logout button */
+#logout-button {
+    float: right;
+}

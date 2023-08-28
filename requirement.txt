@@ -1,0 +1,5 @@
+Flask==2.0.1
+PyJWT==2.1.0
+scikit-learn==0.24.2
+Plotly==5.3.1
+python-dotenv==0.19.0
